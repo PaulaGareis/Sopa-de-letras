@@ -1,0 +1,72 @@
+def crear_matriz (N):
+    matriz = []
+    for filas in range (N):
+        matriz.append([])
+        for columnas in range (N):
+            matriz[filas].append(random.choice(string.ascii_lowercase))
+            #matriz[filas].append("")
+    return matriz
+
+
+def insertar_palabra(lista, posicion, palabra): 
+    iterador = posicion
+    for letra in palabra: 
+        lista[iterador] = letra
+        iterador += 1
+    return lista
+
+
+def validar_ubicacion(solucion, columna,fila, longitud_fila,longitud_columna):
+    
+    for valores in solucion.values():
+    
+        if valores["x_inicial"] >= fila and valores["x_final"] <= (fila+longitud_fila):
+            return False
+        if valores["y_inicial"] >= columna and valores["y_final"] <= (columna+longitud_columna):    
+            return False
+    return True
+
+
+def generar_tablero(N, lista_de_palabras):
+    tablero = crear_matriz(N)
+    direcciones = ["vertical", "horizontal"]
+    solucion={}
+    for palabra in lista_de_palabras:
+        posicion = random.choice (direcciones)
+        columna = random.randrange(N-len(palabra))
+        fila = random.randrange(N-len(palabra))
+        y_inicial = columna 
+        x_inicial = fila 
+        
+        if posicion == "horizontal":
+            longitud_fila = 0
+            longitud_columna = len(palabra)
+        else:
+            longitud_fila= len(palabra)
+            longitud_columna= 0
+        
+        while bool(solucion) and not validar_ubicacion(solucion,columna,fila,longitud_fila,longitud_columna):
+            columna = random.randrange(N-len(palabra))      
+            fila = random.randrange(N-len(palabra))
+        if posicion == "horizontal":
+            posicion_x = random.randrange (N)
+            posicion_y= random.randrange(N-len(palabra))
+            insertar_palabra(tablero[posicion_x], posicion_y, palabra)
+            x_inicial=posicion_x 
+            x_final=posicion_x + len(palabra) -1
+            y_inicial=posicion_y 
+            y_final=posicion_y
+        else:
+            posicion_y = random.randrange (N)
+            posicion_x = random.randrange(N-len(palabra))
+            iterador = posicion_y
+            for letra in palabra:
+                tablero[iterador][posicion_x] = letra
+                iterador +=1
+        x_inicial = posicion_x
+        x_final = posicion_x 
+        y_inicial = posicion_y
+        y_final = posicion_y + len(palabra) -1 
+        valores = {"x_inicial": x_inicial, "x_final": x_final, "y_inicial": y_inicial, "y_final": y_final}
+        solucion[palabra] = valores 
+    return (tablero, solucion)
