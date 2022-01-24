@@ -1,0 +1,24 @@
+def numero_mayor_a_15 (numero):
+    return int (numero) >=15   
+
+#print (pedir_dato ("ingrese un numero",numero_mayor_a_15))
+
+def validar_palabra(palabra):
+    return len(palabra) <N/3
+
+def validar_nombre_archivo(nombre_archivo):
+    return len(nombre_archivo) <30
+
+
+def pedir_datos_tablero():
+    global N
+    N=int(pedir_dato("Ingrese la cantidad de filas y columnas: ", numero_mayor_a_15))
+    nombre_archivo = pedir_dato("Ingrese el nombre del archivo:", validar_nombre_archivo)
+    palabras = []
+    palabra = " " 
+    while validar_palabra(palabras):
+        palabra=pedir_dato ("ingrese una palabra ", validar_palabra)
+        if palabra == 'fin':
+            return (N,palabras,nombre_archivo)
+        palabras.append(palabra)
+    return (N,palabras,nombre_archivo)
