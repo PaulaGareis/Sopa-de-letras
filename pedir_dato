@@ -1,0 +1,21 @@
+#PEDIR_DATO
+import random
+import string
+import csv
+
+def mayor_15(numero):
+	return (int (numero) >= 15)
+
+
+#def letras_validas(palabras):
+#	return (len (palabras) < int (TAMANO_SOPA/3))
+
+
+def pedir_dato(texto, validar): 
+	palabra = int (input (texto))
+	while not validar (palabra):  
+		palabra = input ('error', texto)
+	return palabra
+      
+TAMANO_SOPA = int (pedir_dato ('Ingresar numero de filas y columnas', mayor_15))
+#PALABRA_VALIDA = pedir_dato ('Ingresar palabra correcta', letras_validas) 
