@@ -1,0 +1,19 @@
+def escribir_juego(tablero, nombre_archivo, soluciones):
+    with open (nombre_archivo + ".csv", "w") as archivo_matriz:
+        escritor = csv.writer(archivo_matriz)
+        escritor.writerows(tablero)
+    encabezados = ["palabra", "x_inicial", "y_inicial", "y_final", "x_final"]
+    with open (nombre_archivo+"_soluciones.csv", "w") as archivo_soluciones:
+        escritor = csv.DictWriter(archivo_soluciones, fieldnames=encabezados)
+        escritor.writeheader()
+        for clave, valor in soluciones.items():
+            valor["palabra"]=clave
+            escritor.writerow(valor)
+            valor.pop("palabra")
+    print("Los archivos se han creado.")
+
+def leer_archivo (nombre_archivo):
+    with open (nombre_archivo + "_soluciones.csv", "r") as archivo_matriz:
+        escritor = csv.reader(archivo_matriz)
+        for rod in escritor:
+            print (rod)
